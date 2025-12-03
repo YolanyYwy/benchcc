@@ -306,6 +306,9 @@ def main():
     )
     submit_verify_parser.set_defaults(func=lambda args: run_verify_trajectories(args))
 
+    # Add continual learning commands
+    add_cl_commands(subparsers)
+
     args = parser.parse_args()
     if not hasattr(args, "func"):
         parser.print_help()
@@ -389,6 +392,421 @@ def run_manual_mode():
     from tau2.scripts.manual_mode import main as manual_main
 
     manual_main()
+
+
+def add_cl_run_args(parser):
+    """Add continual learning run arguments to a parser."""
+    parser.add_argument(
+        "--config",
+        "-c",
+        type=str,
+        help="Path to YAML config file for CL experiment",
+    )
+    parser.add_argument(
+        "--name",
+        type=str,
+        default="cl_experiment",
+        help="Experiment name",
+    )
+    parser.add_argument(
+        "--domains",
+        type=str,
+        nargs="+",
+        default=["airline", "retail"],
+        help="Domains to include in the experiment",
+    )
+    parser.add_argument(
+        "--curriculum",
+        type=str,
+        choices=["sequential", "interleaved", "difficulty"],
+        default="sequential",
+        help="Curriculum strategy",
+    )
+    parser.add_argument(
+        "--agent-type",
+        type=str,
+        choices=["icl_er", "prompt_strategy", "baseline"],
+        default="icl_er",
+        help="Type of CL agent",
+    )
+    parser.add_argument(
+        "--agent-llm",
+        type=str,
+        default="gpt-4",
+        help="LLM to use for the agent",
+    )
+    parser.add_argument(
+        "--user-llm",
+        type=str,
+        default="gpt-4",
+        help="LLM to use for the user simulator",
+    )
+    parser.add_argument(
+        "--max-examples",
+        type=int,
+        default=5,
+        help="Maximum few-shot examples in prompt",
+    )
+    parser.add_argument(
+        "--buffer-size",
+        type=int,
+        default=1000,
+        help="Memory buffer size",
+    )
+    parser.add_argument(
+        "--num-tasks",
+        type=int,
+        default=None,
+        help="Number of tasks per domain (None = all)",
+    )
+    parser.add_argument(
+        "--eval-frequency",
+        type=int,
+        default=10,
+        help="Evaluate every N tasks",
+    )
+    parser.add_argument(
+        "--output-dir",
+        "-o",
+        type=str,
+        default="./experiments",
+        help="Output directory for results",
+    )
+    parser.add_argument(
+        "--seed",
+        type=int,
+        default=42,
+        help="Random seed",
+    )
+
+
+def run_cl_experiment_cmd(args):
+    """Run continual learning experiment from CLI."""
+    from tau2.continual_learning.orchestrator import (
+        CLExperimentConfig,
+        CLOrchestrator,
+        AgentType,
+    )
+    from tau2.continual_learning.curriculum import CurriculumStrategy
+    from tau2.continual_learning.memory import SamplingStrategy
+
+    # Load config from file if provided
+    if args.config:
+        import yaml
+        with open(args.config, 'r') as f:
+            config_dict = yaml.safe_load(f)
+        config = CLExperimentConfig(**config_dict)
+    else:
+        # Build config from CLI args
+        curriculum_map = {
+            "sequential": CurriculumStrategy.SEQUENTIAL,
+            "interleaved": CurriculumStrategy.INTERLEAVED,
+            "difficulty": CurriculumStrategy.DIFFICULTY_BASED,
+        }
+        agent_map = {
+            "icl_er": AgentType.ICL_ER,
+            "prompt_strategy": AgentType.PROMPT_STRATEGY,
+            "baseline": AgentType.BASELINE,
+        }
+
+        config = CLExperimentConfig(
+            name=args.name,
+            seed=args.seed,
+            output_dir=args.output_dir,
+            curriculum_strategy=curriculum_map[args.curriculum],
+            domains=args.domains,
+            num_tasks_per_domain=args.num_tasks,
+            agent_type=agent_map[args.agent_type],
+            agent_llm=args.agent_llm,
+            max_examples_in_prompt=args.max_examples,
+            memory_buffer_size=args.buffer_size,
+            eval_frequency=args.eval_frequency,
+            user_llm=args.user_llm,
+        )
+
+    # Run experiment
+    orchestrator = CLOrchestrator(config)
+    result = orchestrator.run()
+
+    print(f"\nExperiment complete!")
+    print(f"Average Accuracy: {result.metrics.average_accuracy:.3f}")
+    print(f"Forgetting Rate: {result.metrics.forgetting_rate:.3f}")
+    print(f"Results saved to: {config.output_dir}/{config.name}")
+
+
+def run_cl_analyze_cmd(args):
+    """Analyze CL experiment results."""
+    import json
+    import os
+
+    results_path = args.results_file
+    if not os.path.exists(results_path):
+        print(f"Results file not found: {results_path}")
+        return
+
+    with open(results_path, 'r') as f:
+        results = json.load(f)
+
+    print("=" * 60)
+    print("Continual Learning Experiment Analysis")
+    print("=" * 60)
+    print(f"Experiment: {results['config']['name']}")
+    print(f"Domains: {results['config']['domains']}")
+    print(f"Curriculum: {results['config']['curriculum_strategy']}")
+    print(f"Agent Type: {results['config']['agent_type']}")
+    print()
+    print("Metrics:")
+    print(f"  Average Accuracy: {results['metrics']['average_accuracy']:.3f}")
+    print(f"  Forgetting Rate: {results['metrics']['forgetting_rate']:.3f}")
+    print(f"  Forward Transfer: {results['metrics']['forward_transfer']:.3f}")
+    print(f"  Backward Transfer: {results['metrics']['backward_transfer']:.3f}")
+    print()
+    print("Per-Domain Accuracy:")
+    for domain, acc in results['metrics']['domain_accuracies'].items():
+        print(f"  {domain}: {acc:.3f}")
+    print()
+    print("Per-Domain Forgetting:")
+    for domain, fgt in results['metrics']['domain_forgetting'].items():
+        print(f"  {domain}: {fgt:.3f}")
+    print("=" * 60)
+
+
+def add_cl_commands(subparsers):
+    """Add continual learning commands to the CLI."""
+
+    # CL run command
+    cl_run_parser = subparsers.add_parser(
+        "cl-run",
+        help="Run a continual learning experiment"
+    )
+    add_cl_run_args(cl_run_parser)
+    cl_run_parser.set_defaults(func=lambda args: run_cl_experiment_cmd(args))
+
+    # CL analyze command
+    cl_analyze_parser = subparsers.add_parser(
+        "cl-analyze",
+        help="Analyze continual learning experiment results"
+    )
+    cl_analyze_parser.add_argument(
+        "results_file",
+        type=str,
+        help="Path to results.json file from CL experiment"
+    )
+    cl_analyze_parser.set_defaults(func=lambda args: run_cl_analyze_cmd(args))
+
+    # CL info command
+    cl_info_parser = subparsers.add_parser(
+        "cl-info",
+        help="Show information about continual learning module"
+    )
+    cl_info_parser.set_defaults(func=lambda args: print_cl_info())
+
+    # CL validate-data command
+    cl_validate_parser = subparsers.add_parser(
+        "cl-validate-data",
+        help="Validate task data for CL experiments"
+    )
+    cl_validate_parser.add_argument(
+        "paths",
+        nargs="+",
+        help="Paths to tasks.json files or directories"
+    )
+    cl_validate_parser.add_argument(
+        "--domain",
+        type=str,
+        help="Expected domain name (auto-detected if not provided)"
+    )
+    cl_validate_parser.set_defaults(func=lambda args: run_cl_validate_data(args))
+
+    # CL data-requirements command
+    cl_requirements_parser = subparsers.add_parser(
+        "cl-data-requirements",
+        help="Analyze data requirements for CL experiments"
+    )
+    cl_requirements_parser.add_argument(
+        "--domains",
+        nargs="+",
+        default=["airline", "retail", "telecom"],
+        help="Domains to analyze"
+    )
+    cl_requirements_parser.add_argument(
+        "--buffer-size",
+        type=int,
+        default=1000,
+        help="Target memory buffer size"
+    )
+    cl_requirements_parser.set_defaults(func=lambda args: run_cl_data_requirements(args))
+
+    # CL generate-splits command
+    cl_splits_parser = subparsers.add_parser(
+        "cl-generate-splits",
+        help="Generate CL-specific data splits"
+    )
+    cl_splits_parser.add_argument(
+        "--domains",
+        nargs="+",
+        default=["airline", "retail", "telecom"],
+        help="Domains to generate splits for"
+    )
+    cl_splits_parser.add_argument(
+        "--strategy",
+        type=str,
+        choices=["sequential", "interleaved", "difficulty"],
+        default="sequential",
+        help="Curriculum strategy"
+    )
+    cl_splits_parser.add_argument(
+        "--train-ratio",
+        type=float,
+        default=0.6,
+        help="Training set ratio"
+    )
+    cl_splits_parser.add_argument(
+        "--num-phases",
+        type=int,
+        default=3,
+        help="Number of learning phases"
+    )
+    cl_splits_parser.add_argument(
+        "--output-dir",
+        type=str,
+        default="./data/tau2/cl_splits",
+        help="Output directory for split files"
+    )
+    cl_splits_parser.add_argument(
+        "--seed",
+        type=int,
+        default=42,
+        help="Random seed"
+    )
+    cl_splits_parser.set_defaults(func=lambda args: run_cl_generate_splits(args))
+
+
+def run_cl_validate_data(args):
+    """Validate task data for CL experiments."""
+    from pathlib import Path
+    from tau2.continual_learning.data_generation.validator import validate_task_file
+
+    for path_str in args.paths:
+        path = Path(path_str)
+
+        if path.is_file() and path.suffix == ".json":
+            validate_task_file(path, domain=args.domain, verbose=True)
+        elif path.is_dir():
+            # Find all tasks.json in directory
+            for tasks_file in path.rglob("tasks.json"):
+                validate_task_file(tasks_file, domain=args.domain, verbose=True)
+        else:
+            print(f"Skipping invalid path: {path}")
+
+
+def run_cl_data_requirements(args):
+    """Analyze data requirements for CL experiments."""
+    import json
+    from pathlib import Path
+    from tau2.continual_learning.data_generation.generator import print_data_requirements
+
+    # Find task files
+    base_path = Path("data/tau2/domains")
+    domain_tasks = {}
+
+    for domain in args.domains:
+        tasks_file = base_path / domain / "tasks.json"
+        if tasks_file.exists():
+            with open(tasks_file, 'r', encoding='utf-8') as f:
+                tasks = json.load(f)
+            domain_tasks[domain] = tasks
+        else:
+            print(f"Warning: tasks.json not found for domain '{domain}'")
+
+    if domain_tasks:
+        print_data_requirements(domain_tasks, args.buffer_size)
+    else:
+        print("No task files found!")
+
+
+def run_cl_generate_splits(args):
+    """Generate CL-specific data splits."""
+    import json
+    from pathlib import Path
+    from tau2.continual_learning.data_generation.generator import (
+        CLSplitConfig,
+        generate_cl_split,
+        generate_multi_domain_cl_split,
+    )
+
+    base_path = Path("data/tau2/domains")
+    output_dir = Path(args.output_dir)
+    output_dir.mkdir(parents=True, exist_ok=True)
+
+    config = CLSplitConfig(
+        train_ratio=args.train_ratio,
+        val_ratio=(1.0 - args.train_ratio) / 2,
+        test_ratio=(1.0 - args.train_ratio) / 2,
+        num_phases=args.num_phases,
+        use_difficulty_ordering=(args.strategy == "difficulty"),
+        seed=args.seed,
+    )
+
+    # Generate per-domain splits
+    domain_files = {}
+    for domain in args.domains:
+        tasks_file = base_path / domain / "tasks.json"
+        if tasks_file.exists():
+            domain_files[domain] = tasks_file
+            output_file = output_dir / f"{domain}_cl_split.json"
+            generate_cl_split(
+                tasks_file=tasks_file,
+                output_file=output_file,
+                strategy=args.strategy,
+                config=config,
+                domain=domain,
+            )
+        else:
+            print(f"Warning: tasks.json not found for domain '{domain}'")
+
+    # Generate combined multi-domain split
+    if len(domain_files) > 1:
+        combined_output = output_dir / "multi_domain_cl_split.json"
+        generate_multi_domain_cl_split(
+            domain_tasks_files=domain_files,
+            output_file=combined_output,
+            strategy=args.strategy,
+            config=config,
+        )
+
+    print(f"\nSplits saved to: {output_dir}")
+
+
+def print_cl_info():
+    """Print information about the CL module."""
+    print("""
+================================================================
+           Tau2-CL: Continual Learning for Tool Use
+================================================================
+
+  Continual Learning Framework for Parameter-Free API Agents
+
+  FEATURES:
+  - In-Context Learning with Experience Replay (ICL-ER)
+  - Prompt Strategy Evolution (PSE)
+  - Multiple curriculum strategies (Sequential, Interleaved, etc)
+  - Comprehensive CL metrics (Forgetting, Transfer, etc)
+
+  USAGE:
+  1. Run experiment:
+     tau2 cl-run --domains airline retail --curriculum sequential
+
+  2. With config file:
+     tau2 cl-run --config experiments/my_config.yaml
+
+  3. Analyze results:
+     tau2 cl-analyze experiments/results.json
+
+  See docs/continuous_learning_framework_design.md for details
+
+================================================================
+""")
 
 
 if __name__ == "__main__":

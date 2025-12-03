@@ -1,0 +1,38 @@
+# Tau2-CL: Prompt Strategy Evolution Configuration
+# Agent learns which prompt template works best for each domain/task
+
+name: "prompt_strategy_evolution"
+seed: 42
+output_dir: "./experiments/cl"
+
+# Curriculum
+curriculum_strategy: "sequential"
+domains:
+  - "airline"
+  - "retail"
+num_tasks_per_domain: null
+
+# Agent - Prompt Strategy Evolution
+agent_type: "prompt_strategy"
+agent_llm: "gpt-4"
+agent_llm_args:
+  temperature: 0.7
+
+# PSE specific (configured in agent)
+max_examples_in_prompt: 5
+memory_buffer_size: 500
+
+# Training
+episodes_per_task: 1
+max_steps_per_episode: 100
+
+# Evaluation
+eval_frequency: 10
+eval_on_all_seen_tasks: true
+
+# User
+user_llm: "gpt-4"
+
+# Logging
+save_trajectories: true
+save_checkpoints: true

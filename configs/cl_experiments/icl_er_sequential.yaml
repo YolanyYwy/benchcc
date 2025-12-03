@@ -1,0 +1,96 @@
+# Tau2-CL: Continual Learning Experiment Configuration
+# Sequential ICL-ER Baseline on Airline and Retail domains
+
+# =============================================================================
+# Experiment Identification
+# =============================================================================
+name: "icl_er_sequential_baseline"
+seed: 42
+output_dir: "./experiments/cl"
+
+# =============================================================================
+# Curriculum Configuration
+# =============================================================================
+# Curriculum strategy: sequential, interleaved, difficulty
+curriculum_strategy: "sequential"
+
+# Domains to include (in order for sequential curriculum)
+domains:
+  - "airline"
+  - "retail"
+
+# Task configuration
+task_split: "train"
+num_tasks_per_domain: null  # null = all tasks
+
+# Domain order for sequential curriculum (optional, defaults to alphabetical)
+domain_order: null
+
+# Whether to shuffle tasks within each domain
+shuffle_within_domain: false
+
+# =============================================================================
+# Agent Configuration
+# =============================================================================
+# Agent type: icl_er, prompt_strategy, baseline
+agent_type: "icl_er"
+
+# LLM configuration
+agent_llm: "gpt-4"
+agent_llm_args:
+  temperature: 0.7
+  max_tokens: 1024
+
+# =============================================================================
+# ICL-ER Specific Configuration
+# =============================================================================
+# Maximum few-shot examples in prompt
+max_examples_in_prompt: 5
+
+# Memory buffer size (max experiences to store)
+memory_buffer_size: 1000
+
+# Minimum reward to store an experience
+min_reward_for_storage: 0.5
+
+# Retrieval strategy: uniform, reward, recency, diversity, balanced, similarity
+retrieval_strategy: "diversity"
+
+# Enable embedding-based similarity retrieval
+enable_similarity_retrieval: false
+
+# =============================================================================
+# Training Configuration
+# =============================================================================
+# Number of episodes per task
+episodes_per_task: 1
+
+# Maximum steps per episode
+max_steps_per_episode: 100
+
+# =============================================================================
+# Evaluation Configuration
+# =============================================================================
+# Evaluate every N tasks
+eval_frequency: 10
+
+# Whether to evaluate on all seen tasks (vs just latest)
+eval_on_all_seen_tasks: true
+
+# Number of evaluation trials per task
+num_eval_trials: 1
+
+# =============================================================================
+# User Simulator Configuration
+# =============================================================================
+user_llm: "gpt-4"
+user_llm_args:
+  temperature: 0.7
+
+# =============================================================================
+# Logging and Checkpointing
+# =============================================================================
+save_trajectories: true
+save_checkpoints: true
+checkpoint_frequency: 20
+log_level: "INFO"

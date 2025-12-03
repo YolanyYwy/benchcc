@@ -1,0 +1,39 @@
+# Tau2-CL: Quick Test Configuration
+# Small scale test to verify setup
+
+name: "quick_test"
+seed: 42
+output_dir: "./experiments/cl_test"
+
+# Curriculum - small scale
+curriculum_strategy: "sequential"
+domains:
+  - "airline"
+num_tasks_per_domain: 5  # Only 5 tasks for quick test
+
+# Agent
+agent_type: "icl_er"
+agent_llm: "gpt-4"
+
+# ICL-ER config
+max_examples_in_prompt: 3
+memory_buffer_size: 100
+min_reward_for_storage: 0.3
+retrieval_strategy: "diversity"
+
+# Training
+episodes_per_task: 1
+max_steps_per_episode: 50
+
+# Evaluation
+eval_frequency: 2  # Frequent eval for debugging
+eval_on_all_seen_tasks: true
+num_eval_trials: 1
+
+# User
+user_llm: "gpt-4"
+
+# Logging
+save_trajectories: true
+save_checkpoints: false  # Disable for quick test
+log_level: "DEBUG"
