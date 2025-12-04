@@ -681,6 +681,69 @@ def add_cl_commands(subparsers):
     )
     cl_splits_parser.set_defaults(func=lambda args: run_cl_generate_splits(args))
 
+    # CL generate-tasks command (LLM-based task generation)
+    cl_generate_tasks_parser = subparsers.add_parser(
+        "cl-generate-tasks",
+        help="Generate synthetic training tasks using LLM"
+    )
+    cl_generate_tasks_parser.add_argument(
+        "--domain",
+        type=str,
+        required=True,
+        choices=["airline", "retail", "both"],
+        help="Domain to generate tasks for"
+    )
+    cl_generate_tasks_parser.add_argument(
+        "--num-tasks",
+        type=int,
+        default=None,
+        help="Number of tasks to generate (default: 307 for airline, 243 for retail)"
+    )
+    cl_generate_tasks_parser.add_argument(
+        "--model",
+        type=str,
+        default="gpt-4o-mini",
+        help="LLM model to use for generation"
+    )
+    cl_generate_tasks_parser.add_argument(
+        "--output",
+        type=str,
+        default=None,
+        help="Output path (default: tasks_augmented.json in domain folder)"
+    )
+    cl_generate_tasks_parser.add_argument(
+        "--batch-size",
+        type=int,
+        default=10,
+        help="Batch size for concurrent API calls"
+    )
+    cl_generate_tasks_parser.set_defaults(func=lambda args: run_cl_generate_tasks(args))
+
+
+def run_cl_generate_tasks(args):
+    """Generate synthetic tasks using LLM."""
+    from pathlib import Path
+    from tau2.continual_learning.data_generation.llm_task_generator import (
+        generate_airline_tasks,
+        generate_retail_tasks,
+    )
+
+    output_path = Path(args.output) if args.output else None
+
+    if args.domain == "airline" or args.domain == "both":
+        num = args.num_tasks or 307
+        print(f"Generating {num} airline tasks using {args.model}...")
+        tasks = generate_airline_tasks(num, output_path, args.model)
+        print(f"\n✓ Successfully generated {len(tasks)} airline tasks!")
+
+    if args.domain == "retail" or args.domain == "both":
+        num = args.num_tasks or 243
+        print(f"Generating {num} retail tasks using {args.model}...")
+        tasks = generate_retail_tasks(num, output_path, args.model)
+        print(f"\n✓ Successfully generated {len(tasks)} retail tasks!")
+
+    print("\nTask generation complete!")
+
 
 def run_cl_validate_data(args):
     """Validate task data for CL experiments."""

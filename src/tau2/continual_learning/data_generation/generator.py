@@ -80,15 +80,18 @@ class TaskGenerator:
 
         # Number of required actions
         actions = eval_criteria.get("actions", [])
-        score += len(actions) * 1.0
+        if actions is not None:
+            score += len(actions) * 1.0
 
         # Number of NL assertions (harder to satisfy)
         nl_assertions = eval_criteria.get("nl_assertions", [])
-        score += len(nl_assertions) * 1.5
+        if nl_assertions is not None:
+            score += len(nl_assertions) * 1.5
 
         # Number of env assertions
         env_assertions = eval_criteria.get("env_assertions", [])
-        score += len(env_assertions) * 1.2
+        if env_assertions is not None:
+            score += len(env_assertions) * 1.2
 
         # Complexity from task instructions
         instructions = task.get("user_scenario", {}).get("instructions", {})
