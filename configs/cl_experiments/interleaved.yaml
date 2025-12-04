@@ -1,0 +1,26 @@
+# Interleaved Curriculum实验配置
+# 测试交错学习策略
+
+name: "interleaved_experiment"
+seed: 42
+output_dir: "./experiments/interleaved"
+
+# Curriculum设置
+curriculum_strategy: "INTERLEAVED"  # 交错学习多个domain
+domains: ["airline", "retail"]
+num_tasks_per_domain: 50
+
+# Agent配置
+agent_type: "ICL_ER"
+agent_llm: "gpt-4o-mini"
+max_examples_in_prompt: 5
+
+# Memory配置
+memory_buffer_size: 1000
+sampling_strategy: "DIVERSITY"
+
+# User simulator配置
+user_llm: "gpt-4o-mini"
+
+# 评估配置
+eval_frequency: 10

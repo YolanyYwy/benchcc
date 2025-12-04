@@ -1,0 +1,26 @@
+# 快速测试配置
+# 用于快速验证实验设置（10-20个任务，5-10分钟）
+
+name: "quick_test"
+seed: 42
+output_dir: "./experiments/quick_test"
+
+# Curriculum设置
+curriculum_strategy: "SEQUENTIAL"
+domains: ["airline"]
+num_tasks_per_domain: 10  # 少量任务用于快速测试
+
+# Agent配置
+agent_type: "ICL_ER"
+agent_llm: "gpt-4o-mini"  # 使用快速模型
+max_examples_in_prompt: 3
+
+# Memory配置
+memory_buffer_size: 100
+sampling_strategy: "DIVERSITY"
+
+# User simulator配置
+user_llm: "gpt-4o-mini"  # 使用快速模型
+
+# 评估配置
+eval_frequency: 3  # 每3个任务评估一次

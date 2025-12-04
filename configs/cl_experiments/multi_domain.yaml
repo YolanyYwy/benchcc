@@ -1,0 +1,26 @@
+# 多domain实验配置（推荐）
+# 用于测试跨domain的持续学习能力
+
+name: "multi_domain_sequential"
+seed: 42
+output_dir: "./experiments/multi_domain_sequential"
+
+# Curriculum设置
+curriculum_strategy: "SEQUENTIAL"  # 先学完airline，再学retail，最后telecom
+domains: ["airline", "retail", "telecom"]
+num_tasks_per_domain: 50  # 每个domain 50个任务
+
+# Agent配置
+agent_type: "ICL_ER"
+agent_llm: "gpt-4o-mini"
+max_examples_in_prompt: 5
+
+# Memory配置
+memory_buffer_size: 1000
+sampling_strategy: "DIVERSITY"  # 多样性采样避免遗忘
+
+# User simulator配置
+user_llm: "gpt-4o-mini"
+
+# 评估配置
+eval_frequency: 10

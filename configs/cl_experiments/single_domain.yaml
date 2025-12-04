@@ -1,0 +1,26 @@
+# 单domain完整实验配置
+# 用于在单个domain上进行完整训练
+
+name: "airline_full_experiment"
+seed: 42
+output_dir: "./experiments/airline_full"
+
+# Curriculum设置
+curriculum_strategy: "SEQUENTIAL"
+domains: ["airline"]
+num_tasks_per_domain: 50  # 使用50个任务
+
+# Agent配置
+agent_type: "ICL_ER"
+agent_llm: "gpt-4o-mini"
+max_examples_in_prompt: 5
+
+# Memory配置
+memory_buffer_size: 1000
+sampling_strategy: "DIVERSITY"
+
+# User simulator配置
+user_llm: "gpt-4o-mini"
+
+# 评估配置
+eval_frequency: 10  # 每10个任务评估一次

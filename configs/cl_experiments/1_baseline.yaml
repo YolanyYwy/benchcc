@@ -1,0 +1,26 @@
+# Baseline实验配置（无持续学习）
+# 用于对比CL方法的效果
+
+name: "baseline_no_cl"
+seed: 42
+output_dir: "./experiments/baseline"
+
+# Curriculum设置
+curriculum_strategy: "SEQUENTIAL"
+domains: ["airline", "retail"]
+num_tasks_per_domain: 50
+
+# Agent配置
+agent_type: "BASELINE"  # 不使用CL技术
+agent_llm: "gpt-4o-mini"
+max_examples_in_prompt: 0  # Baseline不使用历史示例
+
+# Memory配置（Baseline不使用）
+memory_buffer_size: 0
+sampling_strategy: "UNIFORM"
+
+# User simulator配置
+user_llm: "gpt-4o-mini"
+
+# 评估配置
+eval_frequency: 10
