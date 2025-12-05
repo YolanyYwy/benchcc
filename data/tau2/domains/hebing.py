@@ -1,18 +1,26 @@
 import json
+from collections import defaultdict
 
-# 读取第一个文件
-with open(r"D:\Desktop\work\tau2-bench\data\tau2\domains\retail\tasks.json", "r", encoding="utf-8") as f:
-    data1 = json.load(f)
+# 读取 JSON 文件
+with open(r"/home/yuweiyao/benchcc/data/tau2/domains/retail/tasks.json", "r", encoding="utf-8") as f:
+    data = json.load(f)
 
-# 读取第二个文件
-with open(r"D:\Desktop\work\tau2-bench\data\tau2\domains\retail\tasks_augmented.json", "r", encoding="utf-8") as f:
-    data2 = json.load(f)
+# 统计每个 id 出现次数
+id_count = defaultdict(int)
+for task in data:
+    task_id = int(task["id"])
+    id_count[task_id] += 1
 
-# 拼接数组
-merged = data1 + data2
+# 定义要检查的范围
+all_ids = range(0, 357)  # 0-356
 
-# 写入合并后的文件
-with open(r"D:\Desktop\work\tau2-bench\data\tau2\domains\retail\merged.json", "w", encoding="utf-8") as f:
-    json.dump(merged, f, indent=4, ensure_ascii=False)
+# 找出缺失的 id
+missing_ids = [i for i in all_ids if i not in id_count]
 
-print("Merged!")
+# 找出重复的 id
+duplicate_ids = [i for i, count in id_count.items() if count > 1]
+
+print(f"缺失的 ID 总数: {len(missing_ids)}")
+print("缺失的 ID 列表:", missing_ids)
+print(f"重复的 ID 总数: {len(duplicate_ids)}")
+print("重复的 ID 列表:", duplicate_ids)
