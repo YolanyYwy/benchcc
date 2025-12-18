@@ -538,11 +538,33 @@ def run_cl_analyze_cmd(args):
     """Analyze CL experiment results."""
     import json
     import os
+    from pathlib import Path
 
     results_path = args.results_file
+
+    # If the path doesn't exist, try to find results.json in subdirectories
     if not os.path.exists(results_path):
-        print(f"Results file not found: {results_path}")
-        return
+        path_obj = Path(results_path)
+
+        # Check if it's a directory path without results.json
+        if path_obj.parent.exists() and path_obj.name == "results.json":
+            parent_dir = path_obj.parent
+
+            # Find all results.json files in subdirectories
+            found_results = list(parent_dir.rglob("results.json"))
+
+            if found_results:
+                # Sort by modification time, get the most recent
+                found_results.sort(key=lambda p: p.stat().st_mtime, reverse=True)
+                results_path = str(found_results[0])
+                print(f"Found results file: {results_path}")
+            else:
+                print(f"Results file not found: {args.results_file}")
+                print(f"No results.json found in subdirectories of: {parent_dir}")
+                return
+        else:
+            print(f"Results file not found: {results_path}")
+            return
 
     with open(results_path, 'r') as f:
         results = json.load(f)

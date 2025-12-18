@@ -1,0 +1,1056 @@
+{
+  "config": {
+    "name": "quick_test_airline",
+    "seed": 42,
+    "output_dir": "./experiments/quick_test_airline",
+    "curriculum_strategy": "sequential",
+    "domains": [
+      "airline"
+    ],
+    "task_split": "train",
+    "num_tasks_per_domain": 10,
+    "domain_order": null,
+    "shuffle_within_domain": false,
+    "agent_type": "icl_er",
+    "agent_llm": "gpt-4o-mini",
+    "agent_llm_args": {},
+    "max_examples_in_prompt": 5,
+    "memory_buffer_size": 1000,
+    "min_reward_for_storage": 0.5,
+    "retrieval_strategy": "diversity",
+    "enable_similarity_retrieval": false,
+    "episodes_per_task": 1,
+    "max_steps_per_episode": 100,
+    "eval_frequency": 5,
+    "eval_on_all_seen_tasks": true,
+    "num_eval_trials": 1,
+    "user_llm": "gpt-4o-mini",
+    "user_llm_args": {},
+    "save_trajectories": true,
+    "save_checkpoints": true,
+    "checkpoint_frequency": 20,
+    "log_level": "INFO"
+  },
+  "metrics": {
+    "average_accuracy": 1.0,
+    "forgetting_rate": 0.0,
+    "forward_transfer": 0.0,
+    "backward_transfer": -1.0,
+    "domain_accuracies": {
+      "airline": 0.37142857142857144
+    },
+    "domain_forgetting": {
+      "airline": 0.0
+    },
+    "task_results": [
+      {
+        "task_id": "0",
+        "domain": "airline",
+        "reward": 1.0,
+        "success": true,
+        "num_steps": 10,
+        "timestamp": "2025-12-15T14:59:41.694139",
+        "metadata": {
+          "duration": 13.695602699999654
+        }
+      },
+      {
+        "task_id": "1",
+        "domain": "airline",
+        "reward": 1.0,
+        "success": true,
+        "num_steps": 18,
+        "timestamp": "2025-12-15T15:00:04.005372",
+        "metadata": {
+          "duration": 21.41692349999994
+        }
+      },
+      {
+        "task_id": "2",
+        "domain": "airline",
+        "reward": 0.0,
+        "success": false,
+        "num_steps": 16,
+        "timestamp": "2025-12-15T15:00:36.748213",
+        "metadata": {
+          "duration": 31.758529400000043
+        }
+      },
+      {
+        "task_id": "3",
+        "domain": "airline",
+        "reward": 0.0,
+        "success": false,
+        "num_steps": 12,
+        "timestamp": "2025-12-15T15:00:57.916739",
+        "metadata": {
+          "duration": 20.12305429999924
+        }
+      },
+      {
+        "task_id": "4",
+        "domain": "airline",
+        "reward": 1.0,
+        "success": true,
+        "num_steps": 18,
+        "timestamp": "2025-12-15T15:01:24.713787",
+        "metadata": {
+          "duration": 25.932092299999567
+        }
+      },
+      {
+        "task_id": "0",
+        "domain": "airline",
+        "reward": 1.0,
+        "success": true,
+        "num_steps": 14,
+        "timestamp": "2025-12-15T15:01:55.195265",
+        "metadata": {
+          "duration": 29.657014100000197
+        }
+      },
+      {
+        "task_id": "1",
+        "domain": "airline",
+        "reward": 1.0,
+        "success": true,
+        "num_steps": 18,
+        "timestamp": "2025-12-15T15:02:29.771186",
+        "metadata": {
+          "duration": 33.62712670000019
+        }
+      },
+      {
+        "task_id": "2",
+        "domain": "airline",
+        "reward": 0.0,
+        "success": false,
+        "num_steps": 21,
+        "timestamp": "2025-12-15T15:03:06.881805",
+        "metadata": {
+          "duration": 36.26737940000021
+        }
+      },
+      {
+        "task_id": "3",
+        "domain": "airline",
+        "reward": 0.0,
+        "success": false,
+        "num_steps": 16,
+        "timestamp": "2025-12-15T15:03:27.233374",
+        "metadata": {
+          "duration": 19.61922770000001
+        }
+      },
+      {
+        "task_id": "4",
+        "domain": "airline",
+        "reward": 1.0,
+        "success": true,
+        "num_steps": 6,
+        "timestamp": "2025-12-15T15:03:33.990195",
+        "metadata": {
+          "duration": 5.829314099999465
+        }
+      },
+      {
+        "task_id": "5",
+        "domain": "airline",
+        "reward": 1.0,
+        "success": true,
+        "num_steps": 17,
+        "timestamp": "2025-12-15T15:03:57.846050",
+        "metadata": {
+          "duration": 23.00598809999974
+        }
+      },
+      {
+        "task_id": "6",
+        "domain": "airline",
+        "reward": 1.0,
+        "success": true,
+        "num_steps": 14,
+        "timestamp": "2025-12-15T15:04:17.233515",
+        "metadata": {
+          "duration": 18.396293599999808
+        }
+      },
+      {
+        "task_id": "7",
+        "domain": "airline",
+        "reward": 0.0,
+        "success": false,
+        "num_steps": 33,
+        "timestamp": "2025-12-15T15:05:18.102344",
+        "metadata": {
+          "duration": 59.9404827999997
+        }
+      },
+      {
+        "task_id": "8",
+        "domain": "airline",
+        "reward": 0.0,
+        "success": false,
+        "num_steps": 41,
+        "timestamp": "2025-12-15T15:06:51.018169",
+        "metadata": {
+          "duration": 92.01797959999931
+        }
+      },
+      {
+        "task_id": "9",
+        "domain": "airline",
+        "reward": 0.0,
+        "success": false,
+        "num_steps": 44,
+        "timestamp": "2025-12-15T15:08:34.748286",
+        "metadata": {
+          "duration": 102.70022460000018
+        }
+      },
+      {
+        "task_id": "0",
+        "domain": "airline",
+        "reward": 0.0,
+        "success": false,
+        "num_steps": 14,
+        "timestamp": "2025-12-15T15:08:57.391414",
+        "metadata": {
+          "duration": 21.610539100000096
+        }
+      },
+      {
+        "task_id": "1",
+        "domain": "airline",
+        "reward": 0.0,
+        "success": false,
+        "num_steps": 22,
+        "timestamp": "2025-12-15T15:09:28.734084",
+        "metadata": {
+          "duration": 29.904823099999703
+        }
+      },
+      {
+        "task_id": "2",
+        "domain": "airline",
+        "reward": 0.0,
+        "success": false,
+        "num_steps": 32,
+        "timestamp": "2025-12-15T15:10:22.837797",
+        "metadata": {
+          "duration": 53.156623599999875
+        }
+      },
+      {
+        "task_id": "3",
+        "domain": "airline",
+        "reward": 0.0,
+        "success": false,
+        "num_steps": 12,
+        "timestamp": "2025-12-15T15:10:43.618593",
+        "metadata": {
+          "duration": 19.76133209999989
+        }
+      },
+      {
+        "task_id": "4",
+        "domain": "airline",
+        "reward": 1.0,
+        "success": true,
+        "num_steps": 32,
+        "timestamp": "2025-12-15T15:11:31.562979",
+        "metadata": {
+          "duration": 47.15780360000008
+        }
+      },
+      {
+        "task_id": "5",
+        "domain": "airline",
+        "reward": 0.0,
+        "success": false,
+        "num_steps": 24,
+        "timestamp": "2025-12-15T15:12:02.195452",
+        "metadata": {
+          "duration": 29.608474099999512
+        }
+      },
+      {
+        "task_id": "6",
+        "domain": "airline",
+        "reward": 1.0,
+        "success": true,
+        "num_steps": 14,
+        "timestamp": "2025-12-15T15:12:22.414799",
+        "metadata": {
+          "duration": 19.308504900000116
+        }
+      },
+      {
+        "task_id": "7",
+        "domain": "airline",
+        "reward": 0.0,
+        "success": false,
+        "num_steps": 24,
+        "timestamp": "2025-12-15T15:13:15.670560",
+        "metadata": {
+          "duration": 52.11811370000032
+        }
+      },
+      {
+        "task_id": "8",
+        "domain": "airline",
+        "reward": 0.0,
+        "success": false,
+        "num_steps": 28,
+        "timestamp": "2025-12-15T15:14:02.457435",
+        "metadata": {
+          "duration": 45.91149469999982
+        }
+      },
+      {
+        "task_id": "9",
+        "domain": "airline",
+        "reward": 0.0,
+        "success": false,
+        "num_steps": 47,
+        "timestamp": "2025-12-15T15:15:43.628874",
+        "metadata": {
+          "duration": 100.11240290000114
+        }
+      },
+      {
+        "task_id": "0",
+        "domain": "airline",
+        "reward": 1.0,
+        "success": true,
+        "num_steps": 12,
+        "timestamp": "2025-12-15T15:16:07.075187",
+        "metadata": {
+          "duration": 22.403225699999894
+        }
+      },
+      {
+        "task_id": "1",
+        "domain": "airline",
+        "reward": 0.0,
+        "success": false,
+        "num_steps": 18,
+        "timestamp": "2025-12-15T15:16:32.213649",
+        "metadata": {
+          "duration": 24.24672180000016
+        }
+      },
+      {
+        "task_id": "2",
+        "domain": "airline",
+        "reward": 0.0,
+        "success": false,
+        "num_steps": 37,
+        "timestamp": "2025-12-15T15:17:25.714715",
+        "metadata": {
+          "duration": 52.46785290000116
+        }
+      },
+      {
+        "task_id": "3",
+        "domain": "airline",
+        "reward": 0.0,
+        "success": false,
+        "num_steps": 14,
+        "timestamp": "2025-12-15T15:17:45.815842",
+        "metadata": {
+          "duration": 19.208816500000466
+        }
+      },
+      {
+        "task_id": "4",
+        "domain": "airline",
+        "reward": 0.0,
+        "success": false,
+        "num_steps": 22,
+        "timestamp": "2025-12-15T15:18:12.894538",
+        "metadata": {
+          "duration": 25.939487000001463
+        }
+      },
+      {
+        "task_id": "5",
+        "domain": "airline",
+        "reward": 1.0,
+        "success": true,
+        "num_steps": 14,
+        "timestamp": "2025-12-15T15:18:35.628556",
+        "metadata": {
+          "duration": 21.801543600000514
+        }
+      },
+      {
+        "task_id": "6",
+        "domain": "airline",
+        "reward": 1.0,
+        "success": true,
+        "num_steps": 20,
+        "timestamp": "2025-12-15T15:19:07.038567",
+        "metadata": {
+          "duration": 30.48419130000002
+        }
+      },
+      {
+        "task_id": "7",
+        "domain": "airline",
+        "reward": 0.0,
+        "success": false,
+        "num_steps": 25,
+        "timestamp": "2025-12-15T15:20:00.958084",
+        "metadata": {
+          "duration": 52.955920099999275
+        }
+      },
+      {
+        "task_id": "8",
+        "domain": "airline",
+        "reward": 0.0,
+        "success": false,
+        "num_steps": 30,
+        "timestamp": "2025-12-15T15:20:57.063840",
+        "metadata": {
+          "duration": 55.09239619999971
+        }
+      },
+      {
+        "task_id": "9",
+        "domain": "airline",
+        "reward": 0.0,
+        "success": false,
+        "num_steps": 38,
+        "timestamp": "2025-12-15T15:22:12.289638",
+        "metadata": {
+          "duration": 74.31744219999928
+        }
+      }
+    ],
+    "performance_matrix": [
+      [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    ],
+    "learning_curves": {
+      "overall": [
+        1.0,
+        1.0
+      ],
+      "domain_airline": [
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "num_tasks": 10,
+    "num_domains": 1,
+    "evaluation_time": 0.0
+  },
+  "state": {
+    "current_task_idx": 9,
+    "current_phase": "evaluation",
+    "tasks_completed": [
+      "0",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9"
+    ],
+    "total_episodes": 10,
+    "total_steps": 223,
+    "start_time": "2025-12-15T14:59:26.731540",
+    "last_checkpoint_time": null
+  },
+  "training_history": [
+    {
+      "task_id": "0",
+      "domain": "airline",
+      "reward": 1.0,
+      "success": true,
+      "num_steps": 10,
+      "duration": 13.695602699999654,
+      "is_evaluation": false,
+      "learning_stats": {
+        "experiences_added": 5,
+        "total_experiences": 5,
+        "task_id": "0",
+        "domain": "airline",
+        "reward": 1.0
+      },
+      "termination_reason": "user_stop"
+    },
+    {
+      "task_id": "1",
+      "domain": "airline",
+      "reward": 1.0,
+      "success": true,
+      "num_steps": 18,
+      "duration": 21.41692349999994,
+      "is_evaluation": false,
+      "learning_stats": {
+        "experiences_added": 7,
+        "total_experiences": 12,
+        "task_id": "1",
+        "domain": "airline",
+        "reward": 1.0
+      },
+      "termination_reason": "user_stop"
+    },
+    {
+      "task_id": "2",
+      "domain": "airline",
+      "reward": 0.0,
+      "success": false,
+      "num_steps": 16,
+      "duration": 31.758529400000043,
+      "is_evaluation": false,
+      "learning_stats": {
+        "experiences_added": 0,
+        "reason": "below_reward_threshold"
+      },
+      "termination_reason": "user_stop"
+    },
+    {
+      "task_id": "3",
+      "domain": "airline",
+      "reward": 0.0,
+      "success": false,
+      "num_steps": 12,
+      "duration": 20.12305429999924,
+      "is_evaluation": false,
+      "learning_stats": {
+        "experiences_added": 0,
+        "reason": "below_reward_threshold"
+      },
+      "termination_reason": "user_stop"
+    },
+    {
+      "task_id": "4",
+      "domain": "airline",
+      "reward": 1.0,
+      "success": true,
+      "num_steps": 18,
+      "duration": 25.932092299999567,
+      "is_evaluation": false,
+      "learning_stats": {
+        "experiences_added": 7,
+        "total_experiences": 19,
+        "task_id": "4",
+        "domain": "airline",
+        "reward": 1.0
+      },
+      "termination_reason": "user_stop"
+    },
+    {
+      "task_id": "5",
+      "domain": "airline",
+      "reward": 1.0,
+      "success": true,
+      "num_steps": 17,
+      "duration": 23.00598809999974,
+      "is_evaluation": false,
+      "learning_stats": {
+        "experiences_added": 7,
+        "total_experiences": 26,
+        "task_id": "5",
+        "domain": "airline",
+        "reward": 1.0
+      },
+      "termination_reason": "user_stop"
+    },
+    {
+      "task_id": "6",
+      "domain": "airline",
+      "reward": 1.0,
+      "success": true,
+      "num_steps": 14,
+      "duration": 18.396293599999808,
+      "is_evaluation": false,
+      "learning_stats": {
+        "experiences_added": 7,
+        "total_experiences": 33,
+        "task_id": "6",
+        "domain": "airline",
+        "reward": 1.0
+      },
+      "termination_reason": "user_stop"
+    },
+    {
+      "task_id": "7",
+      "domain": "airline",
+      "reward": 0.0,
+      "success": false,
+      "num_steps": 33,
+      "duration": 59.9404827999997,
+      "is_evaluation": false,
+      "learning_stats": {
+        "experiences_added": 0,
+        "reason": "below_reward_threshold"
+      },
+      "termination_reason": "user_stop"
+    },
+    {
+      "task_id": "8",
+      "domain": "airline",
+      "reward": 0.0,
+      "success": false,
+      "num_steps": 41,
+      "duration": 92.01797959999931,
+      "is_evaluation": false,
+      "learning_stats": {
+        "experiences_added": 0,
+        "reason": "below_reward_threshold"
+      },
+      "termination_reason": "user_stop"
+    },
+    {
+      "task_id": "9",
+      "domain": "airline",
+      "reward": 0.0,
+      "success": false,
+      "num_steps": 44,
+      "duration": 102.70022460000018,
+      "is_evaluation": false,
+      "learning_stats": {
+        "experiences_added": 0,
+        "reason": "below_reward_threshold"
+      },
+      "termination_reason": "user_stop"
+    }
+  ],
+  "evaluation_history": [
+    {
+      "task_id": "0",
+      "domain": "airline",
+      "reward": 1.0,
+      "success": true,
+      "num_steps": 14,
+      "duration": 29.657014100000197,
+      "is_evaluation": true,
+      "learning_stats": {},
+      "termination_reason": "user_stop"
+    },
+    {
+      "task_id": "1",
+      "domain": "airline",
+      "reward": 1.0,
+      "success": true,
+      "num_steps": 18,
+      "duration": 33.62712670000019,
+      "is_evaluation": true,
+      "learning_stats": {},
+      "termination_reason": "user_stop"
+    },
+    {
+      "task_id": "2",
+      "domain": "airline",
+      "reward": 0.0,
+      "success": false,
+      "num_steps": 21,
+      "duration": 36.26737940000021,
+      "is_evaluation": true,
+      "learning_stats": {},
+      "termination_reason": "user_stop"
+    },
+    {
+      "task_id": "3",
+      "domain": "airline",
+      "reward": 0.0,
+      "success": false,
+      "num_steps": 16,
+      "duration": 19.61922770000001,
+      "is_evaluation": true,
+      "learning_stats": {},
+      "termination_reason": "user_stop"
+    },
+    {
+      "task_id": "4",
+      "domain": "airline",
+      "reward": 1.0,
+      "success": true,
+      "num_steps": 6,
+      "duration": 5.829314099999465,
+      "is_evaluation": true,
+      "learning_stats": {},
+      "termination_reason": "user_stop"
+    },
+    {
+      "task_id": "0",
+      "domain": "airline",
+      "reward": 0.0,
+      "success": false,
+      "num_steps": 14,
+      "duration": 21.610539100000096,
+      "is_evaluation": true,
+      "learning_stats": {},
+      "termination_reason": "user_stop"
+    },
+    {
+      "task_id": "1",
+      "domain": "airline",
+      "reward": 0.0,
+      "success": false,
+      "num_steps": 22,
+      "duration": 29.904823099999703,
+      "is_evaluation": true,
+      "learning_stats": {},
+      "termination_reason": "user_stop"
+    },
+    {
+      "task_id": "2",
+      "domain": "airline",
+      "reward": 0.0,
+      "success": false,
+      "num_steps": 32,
+      "duration": 53.156623599999875,
+      "is_evaluation": true,
+      "learning_stats": {},
+      "termination_reason": "user_stop"
+    },
+    {
+      "task_id": "3",
+      "domain": "airline",
+      "reward": 0.0,
+      "success": false,
+      "num_steps": 12,
+      "duration": 19.76133209999989,
+      "is_evaluation": true,
+      "learning_stats": {},
+      "termination_reason": "user_stop"
+    },
+    {
+      "task_id": "4",
+      "domain": "airline",
+      "reward": 1.0,
+      "success": true,
+      "num_steps": 32,
+      "duration": 47.15780360000008,
+      "is_evaluation": true,
+      "learning_stats": {},
+      "termination_reason": "user_stop"
+    },
+    {
+      "task_id": "5",
+      "domain": "airline",
+      "reward": 0.0,
+      "success": false,
+      "num_steps": 24,
+      "duration": 29.608474099999512,
+      "is_evaluation": true,
+      "learning_stats": {},
+      "termination_reason": "user_stop"
+    },
+    {
+      "task_id": "6",
+      "domain": "airline",
+      "reward": 1.0,
+      "success": true,
+      "num_steps": 14,
+      "duration": 19.308504900000116,
+      "is_evaluation": true,
+      "learning_stats": {},
+      "termination_reason": "user_stop"
+    },
+    {
+      "task_id": "7",
+      "domain": "airline",
+      "reward": 0.0,
+      "success": false,
+      "num_steps": 24,
+      "duration": 52.11811370000032,
+      "is_evaluation": true,
+      "learning_stats": {},
+      "termination_reason": "user_stop"
+    },
+    {
+      "task_id": "8",
+      "domain": "airline",
+      "reward": 0.0,
+      "success": false,
+      "num_steps": 28,
+      "duration": 45.91149469999982,
+      "is_evaluation": true,
+      "learning_stats": {},
+      "termination_reason": "user_stop"
+    },
+    {
+      "task_id": "9",
+      "domain": "airline",
+      "reward": 0.0,
+      "success": false,
+      "num_steps": 47,
+      "duration": 100.11240290000114,
+      "is_evaluation": true,
+      "learning_stats": {},
+      "termination_reason": "user_stop"
+    },
+    {
+      "task_id": "0",
+      "domain": "airline",
+      "reward": 1.0,
+      "success": true,
+      "num_steps": 12,
+      "duration": 22.403225699999894,
+      "is_evaluation": true,
+      "learning_stats": {},
+      "termination_reason": "user_stop"
+    },
+    {
+      "task_id": "1",
+      "domain": "airline",
+      "reward": 0.0,
+      "success": false,
+      "num_steps": 18,
+      "duration": 24.24672180000016,
+      "is_evaluation": true,
+      "learning_stats": {},
+      "termination_reason": "user_stop"
+    },
+    {
+      "task_id": "2",
+      "domain": "airline",
+      "reward": 0.0,
+      "success": false,
+      "num_steps": 37,
+      "duration": 52.46785290000116,
+      "is_evaluation": true,
+      "learning_stats": {},
+      "termination_reason": "user_stop"
+    },
+    {
+      "task_id": "3",
+      "domain": "airline",
+      "reward": 0.0,
+      "success": false,
+      "num_steps": 14,
+      "duration": 19.208816500000466,
+      "is_evaluation": true,
+      "learning_stats": {},
+      "termination_reason": "user_stop"
+    },
+    {
+      "task_id": "4",
+      "domain": "airline",
+      "reward": 0.0,
+      "success": false,
+      "num_steps": 22,
+      "duration": 25.939487000001463,
+      "is_evaluation": true,
+      "learning_stats": {},
+      "termination_reason": "user_stop"
+    },
+    {
+      "task_id": "5",
+      "domain": "airline",
+      "reward": 1.0,
+      "success": true,
+      "num_steps": 14,
+      "duration": 21.801543600000514,
+      "is_evaluation": true,
+      "learning_stats": {},
+      "termination_reason": "user_stop"
+    },
+    {
+      "task_id": "6",
+      "domain": "airline",
+      "reward": 1.0,
+      "success": true,
+      "num_steps": 20,
+      "duration": 30.48419130000002,
+      "is_evaluation": true,
+      "learning_stats": {},
+      "termination_reason": "user_stop"
+    },
+    {
+      "task_id": "7",
+      "domain": "airline",
+      "reward": 0.0,
+      "success": false,
+      "num_steps": 25,
+      "duration": 52.955920099999275,
+      "is_evaluation": true,
+      "learning_stats": {},
+      "termination_reason": "user_stop"
+    },
+    {
+      "task_id": "8",
+      "domain": "airline",
+      "reward": 0.0,
+      "success": false,
+      "num_steps": 30,
+      "duration": 55.09239619999971,
+      "is_evaluation": true,
+      "learning_stats": {},
+      "termination_reason": "user_stop"
+    },
+    {
+      "task_id": "9",
+      "domain": "airline",
+      "reward": 0.0,
+      "success": false,
+      "num_steps": 38,
+      "duration": 74.31744219999928,
+      "is_evaluation": true,
+      "learning_stats": {},
+      "termination_reason": "user_stop"
+    }
+  ],
+  "duration_seconds": 1365.5686927000006
+}

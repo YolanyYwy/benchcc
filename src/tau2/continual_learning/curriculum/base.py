@@ -131,8 +131,18 @@ class CurriculumManager(ABC):
         Returns:
             TaskMetadata object with computed values
         """
-        # Extract domain from task ID (format: domain_xxx_xxx)
-        domain = task.id.split("_")[0] if "_" in task.id else "unknown"
+        # Extract domain from task user_scenario.instructions if available
+        # Fall back to task ID parsing (format: domain_xxx_xxx)
+        domain = "unknown"
+        if (hasattr(task, 'user_scenario') and hasattr(task.user_scenario, 'instructions')):
+            if isinstance(task.user_scenario.instructions, dict):
+                domain = task.user_scenario.instructions.get('domain', 'unknown')
+            elif hasattr(task.user_scenario.instructions, 'domain'):
+                domain = task.user_scenario.instructions.domain
+
+        # If still unknown, try to extract from task ID
+        if domain == "unknown" and "_" in task.id:
+            domain = task.id.split("_")[0]
 
         # Get action counts from evaluation criteria
         num_agent_actions = 0
