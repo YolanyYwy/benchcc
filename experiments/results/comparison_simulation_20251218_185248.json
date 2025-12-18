@@ -1,0 +1,404 @@
+{
+  "ICL-ER": {
+    "avg_performance": 0.8,
+    "domain_performance": {
+      "customer_service": 0.85,
+      "tech_support": 0.8,
+      "sales": 0.75
+    },
+    "forgetting": 0.13333333333333333,
+    "stability": 0.7142857142857143,
+    "performance_std": 0.4,
+    "total_tasks": 60,
+    "elapsed_time": 0.008041620254516602,
+    "method_name": "ICL-ER",
+    "agent_stats": {
+      "total_steps": 0,
+      "tasks_completed": 48,
+      "memory_buffer_size": 96,
+      "memory_buffer_stats": {
+        "total_experiences": 96,
+        "max_size": 1000,
+        "fill_ratio": 0.096,
+        "num_tasks": 48,
+        "num_domains": 3,
+        "num_tools": 4,
+        "avg_reward": 1.0,
+        "domains": [
+          "customer_service",
+          "tech_support",
+          "sales"
+        ],
+        "experiences_per_domain": {
+          "customer_service": 34,
+          "tech_support": 32,
+          "sales": 30
+        }
+      }
+    }
+  },
+  "EWC": {
+    "avg_performance": 0.8333333333333334,
+    "domain_performance": {
+      "customer_service": 0.9,
+      "tech_support": 0.8,
+      "sales": 0.8
+    },
+    "forgetting": 0.19999999999999998,
+    "stability": 0.7285029720968148,
+    "performance_std": 0.372677996249965,
+    "total_tasks": 60,
+    "elapsed_time": 0.07845664024353027,
+    "method_name": "EWC",
+    "agent_stats": {
+      "total_steps": 0,
+      "tasks_completed": 60,
+      "memory_buffer_size": 0,
+      "memory_buffer_stats": {
+        "total_experiences": 0,
+        "max_size": 1000,
+        "fill_ratio": 0.0,
+        "num_tasks": 0,
+        "num_domains": 0,
+        "num_tools": 0,
+        "avg_reward": 0,
+        "domains": [],
+        "experiences_per_domain": {}
+      },
+      "tool_scorer_stats": {
+        "total_updates": 0,
+        "tool_selection_counts": {
+          "search_database": 0,
+          "send_email": 0,
+          "create_ticket": 0,
+          "update_record": 0
+        },
+        "weights_norm": 3.322556362105594,
+        "weights_mean": 0.0005876098365397481,
+        "weights_std": 0.059943332785756684,
+        "has_fisher": true
+      },
+      "parametric_memory_stats": {
+        "total_experiences": 100,
+        "max_size": 1000,
+        "fill_ratio": 0.1,
+        "num_tasks": 50,
+        "num_domains": 3,
+        "num_tools": 4,
+        "avg_reward": 1.0,
+        "domains": [
+          "customer_service",
+          "tech_support",
+          "sales"
+        ],
+        "experiences_per_domain": {
+          "customer_service": 36,
+          "tech_support": 32,
+          "sales": 32
+        },
+        "total_weight_updates": 100,
+        "importance_mean": 1.0049999999999994,
+        "importance_std": 4.440892098500626e-16,
+        "importance_min": 1.005,
+        "importance_max": 1.005
+      },
+      "num_tasks_learned": 50,
+      "current_lambda": 1.0,
+      "fisher_history_length": 50,
+      "online_ewc": true,
+      "has_cumulative_fisher": true,
+      "cumulative_fisher_stats": {
+        "mean": 0.07703302267582217,
+        "std": 0.037944966242904006,
+        "max": 0.263206116379338,
+        "num_important": 3068
+      }
+    }
+  },
+  "Replay": {
+    "avg_performance": 0.85,
+    "domain_performance": {
+      "customer_service": 0.85,
+      "tech_support": 0.8,
+      "sales": 0.9
+    },
+    "forgetting": 0.0,
+    "stability": 0.7368808923471146,
+    "performance_std": 0.3570714214271425,
+    "total_tasks": 60,
+    "elapsed_time": 0.0732886791229248,
+    "method_name": "Replay",
+    "agent_stats": {
+      "total_steps": 0,
+      "tasks_completed": 60,
+      "memory_buffer_size": 0,
+      "memory_buffer_stats": {
+        "total_experiences": 0,
+        "max_size": 1000,
+        "fill_ratio": 0.0,
+        "num_tasks": 0,
+        "num_domains": 0,
+        "num_tools": 0,
+        "avg_reward": 0,
+        "domains": [],
+        "experiences_per_domain": {}
+      },
+      "tool_scorer_stats": {
+        "total_updates": 0,
+        "tool_selection_counts": {
+          "search_database": 0,
+          "send_email": 0,
+          "create_ticket": 0,
+          "update_record": 0
+        },
+        "weights_norm": 3.2688288675903627,
+        "weights_mean": -0.0006316349784287073,
+        "weights_std": 0.05897346836812327,
+        "has_fisher": false
+      },
+      "parametric_memory_stats": {
+        "total_experiences": 102,
+        "max_size": 1000,
+        "fill_ratio": 0.102,
+        "num_tasks": 51,
+        "num_domains": 3,
+        "num_tools": 4,
+        "avg_reward": 1.0,
+        "domains": [
+          "tech_support",
+          "sales",
+          "customer_service"
+        ],
+        "experiences_per_domain": {
+          "tech_support": 32,
+          "sales": 36,
+          "customer_service": 34
+        },
+        "total_weight_updates": 373,
+        "importance_mean": 1.0158333333333325,
+        "importance_std": 0.012026998495487197,
+        "importance_min": 0.9999999999999999,
+        "importance_max": 1.0749999999999984
+      },
+      "total_replay_updates": 0,
+      "replay_ratio": 0.5,
+      "replay_batch_size": 5,
+      "replay_strategy": "importance",
+      "steps_since_last_replay": 60
+    }
+  },
+  "Param-Isolation": {
+    "avg_performance": 0.8333333333333334,
+    "domain_performance": {
+      "customer_service": 0.85,
+      "tech_support": 0.8,
+      "sales": 0.85
+    },
+    "forgetting": 0.0,
+    "stability": 0.7285029720968148,
+    "performance_std": 0.372677996249965,
+    "total_tasks": 60,
+    "elapsed_time": 0.04870200157165527,
+    "method_name": "Param-Isolation",
+    "agent_stats": {
+      "total_steps": 0,
+      "tasks_completed": 60,
+      "memory_buffer_size": 0,
+      "memory_buffer_stats": {
+        "total_experiences": 0,
+        "max_size": 1000,
+        "fill_ratio": 0.0,
+        "num_tasks": 0,
+        "num_domains": 0,
+        "num_tools": 0,
+        "avg_reward": 0,
+        "domains": [],
+        "experiences_per_domain": {}
+      },
+      "tool_scorer_stats": {
+        "total_updates": 60,
+        "tool_selection_counts": {
+          "search_database": 22,
+          "send_email": 11,
+          "create_ticket": 14,
+          "update_record": 13
+        },
+        "weights_norm": 3.1774428838329296,
+        "weights_mean": -0.0004984128660499815,
+        "weights_std": 0.0573258803559088,
+        "has_fisher": false
+      },
+      "parametric_memory_stats": {
+        "total_experiences": 100,
+        "max_size": 1000,
+        "fill_ratio": 0.1,
+        "num_tasks": 50,
+        "num_domains": 3,
+        "num_tools": 4,
+        "avg_reward": 1.0,
+        "domains": [
+          "tech_support",
+          "customer_service",
+          "sales"
+        ],
+        "experiences_per_domain": {
+          "tech_support": 32,
+          "customer_service": 34,
+          "sales": 34
+        },
+        "total_weight_updates": 100,
+        "importance_mean": 1.0049999999999994,
+        "importance_std": 4.440892098500626e-16,
+        "importance_min": 1.005,
+        "importance_max": 1.005
+      },
+      "num_task_families": 3,
+      "num_assigned_tasks": 1,
+      "routing_accuracy": 0.26666666666666666,
+      "domain_to_task_mapping": {
+        "default": 0
+      },
+      "task_family_stats": {
+        "task_0": {
+          "total_updates": 60,
+          "tool_selection_counts": {
+            "search_database": 22,
+            "send_email": 11,
+            "create_ticket": 14,
+            "update_record": 13
+          },
+          "weights_norm": 3.5168567696407047,
+          "weights_mean": 0.0008031585250606469,
+          "weights_std": 0.06344673553138286,
+          "has_fisher": false
+        },
+        "task_1": {
+          "total_updates": 0,
+          "tool_selection_counts": {
+            "search_database": 0,
+            "send_email": 0,
+            "create_ticket": 0,
+            "update_record": 0
+          },
+          "weights_norm": 3.2166066305792036,
+          "weights_mean": 0.0017478173072510625,
+          "weights_std": 0.0580083217066962,
+          "has_fisher": false
+        },
+        "task_2": {
+          "total_updates": 0,
+          "tool_selection_counts": {
+            "search_database": 0,
+            "send_email": 0,
+            "create_ticket": 0,
+            "update_record": 0
+          },
+          "weights_norm": 3.178983315826382,
+          "weights_mean": -0.0008417652244305245,
+          "weights_std": 0.057349662499680716,
+          "has_fisher": false
+        }
+      },
+      "shared_scorer_stats": {
+        "total_updates": 60,
+        "tool_selection_counts": {
+          "search_database": 22,
+          "send_email": 11,
+          "create_ticket": 14,
+          "update_record": 13
+        },
+        "weights_norm": 3.1774428838329296,
+        "weights_mean": -0.0004984128660499815,
+        "weights_std": 0.0573258803559088,
+        "has_fisher": false
+      }
+    }
+  },
+  "Meta-CL": {
+    "avg_performance": 0.8333333333333334,
+    "domain_performance": {
+      "customer_service": 0.9,
+      "tech_support": 0.85,
+      "sales": 0.75
+    },
+    "forgetting": 0.19999999999999998,
+    "stability": 0.7285029720968149,
+    "performance_std": 0.37267799624996495,
+    "total_tasks": 60,
+    "elapsed_time": 0.06199288368225098,
+    "method_name": "Meta-CL",
+    "agent_stats": {
+      "total_steps": 0,
+      "tasks_completed": 60,
+      "memory_buffer_size": 0,
+      "memory_buffer_stats": {
+        "total_experiences": 0,
+        "max_size": 1000,
+        "fill_ratio": 0.0,
+        "num_tasks": 0,
+        "num_domains": 0,
+        "num_tools": 0,
+        "avg_reward": 0,
+        "domains": [],
+        "experiences_per_domain": {}
+      },
+      "tool_scorer_stats": {
+        "total_updates": 0,
+        "tool_selection_counts": {
+          "search_database": 0,
+          "send_email": 0,
+          "create_ticket": 0,
+          "update_record": 0
+        },
+        "weights_norm": 3.2739837843912607,
+        "weights_mean": -0.002021755919392051,
+        "weights_std": 0.05903524787304946,
+        "has_fisher": false
+      },
+      "parametric_memory_stats": {
+        "total_experiences": 100,
+        "max_size": 1000,
+        "fill_ratio": 0.1,
+        "num_tasks": 50,
+        "num_domains": 3,
+        "num_tools": 4,
+        "avg_reward": 1.0,
+        "domains": [
+          "customer_service",
+          "tech_support",
+          "sales"
+        ],
+        "experiences_per_domain": {
+          "customer_service": 36,
+          "tech_support": 34,
+          "sales": 30
+        },
+        "total_weight_updates": 100,
+        "importance_mean": 1.004999962923965,
+        "importance_std": 3.198922748006075e-08,
+        "importance_min": 1.0049998901724888,
+        "importance_max": 1.0049999992733292
+      },
+      "meta_parameters": {
+        "base_learning_rate": 0.010001,
+        "memory_write_threshold": 0.5,
+        "memory_decay_rate": 0.001,
+        "retrieval_k": 4,
+        "replay_ratio": 0.5001,
+        "ewc_lambda": 1.0001000000000002
+      },
+      "long_term_performance": 0.7,
+      "average_forgetting": 0.15833333333333333,
+      "baseline_performance": {
+        "customer_service": 1.0,
+        "tech_support": 1.0,
+        "sales": 1.0
+      },
+      "current_performance": {
+        "customer_service": 1.0,
+        "tech_support": 0.0,
+        "sales": 1.0
+      }
+    }
+  }
+}
